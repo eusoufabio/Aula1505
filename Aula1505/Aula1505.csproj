@@ -155,6 +155,8 @@
     </Compile>
     <Compile Include="Models\PessoaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RN\cls_Banco.cs" />
+    <Compile Include="RN\cls_lista.cs" />
     <Compile Include="RN\cls_RegraNegocio.cs" />
   </ItemGroup>
   <ItemGroup>

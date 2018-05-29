@@ -3,21 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MVC_CRUD_PESSOA.RN;
+
 
 namespace MVC_CRUD_PESSOA.RegraNegocio
 {
     public class cls_RegraNegocio
     {
-        public static List<PessoaModel> listaVazia(List<PessoaModel> lista)
+        public List<PessoaModel> get_lista()
         {
-            List<PessoaModel> retorno = new List<PessoaModel>();
+            return cls_lista.lst_Pessoas;
+        }
 
-            if (lista.Count == 0)
-            {
-                retorno.Add(new PessoaModel());
-            }
+        public List<PessoaModel> get_lista(string cpf)
+        {
+            List<PessoaModel> aux = new List<PessoaModel>();
 
-            return retorno;
+            foreach (var item in cls_lista.lst_Pessoas)
+                if (item.cpf.Contains(cpf))
+                    aux.Add(item);
+
+            return cls_lista.lst_Pessoas.FindAll(p => p.cpf.Contains(cpf));
         }
     }
 }

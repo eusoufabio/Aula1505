@@ -7,9 +7,11 @@ namespace MVC_CRUD_PESSOA.Models
 {
     public class PessoaModel
     {
+        public int id { get; set; }
         public string nome { get; set; }
         public int idade { get; set; }
         public string cpf { get; set; }
         public string email { get; set; }
+
     }
 }

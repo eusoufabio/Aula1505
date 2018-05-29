@@ -1,4 +1,6 @@
 ﻿using MVC_CRUD_PESSOA.Models;
+using MVC_CRUD_PESSOA.RegraNegocio;
+using MVC_CRUD_PESSOA.RN;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,48 +16,14 @@ namespace MVC_CRUD_PESSOA.Controllers
         // GET: Pessoa
         public ActionResult Index()
         {
-            if (lst_Pessoa.Count == 0)
-            {
-                PessoaModel aux;
-
-                aux = new PessoaModel();
-                aux.nome = "Fábio";
-                aux.idade = 30;
-                aux.cpf = "12380260796";
-                aux.email = "wwwpontofabio@gmail.com";
-                lst_Pessoa.Add(aux);
-
-                aux = new PessoaModel();
-                aux.nome = "Carol";
-                aux.idade = 24;
-                aux.cpf = "123.456.789-10";
-                aux.email = "carol@gmail.com";
-                lst_Pessoa.Add(aux);
-
-                aux = new PessoaModel();
-                aux.nome = "Letícia";
-                aux.idade = 1;
-                aux.cpf = "987.654.321-00";
-                aux.email = "le@gmail.com";
-                lst_Pessoa.Add(aux);
-
-            }
-            return View(lst_Pessoa);
+            cls_RegraNegocio rn = new cls_RegraNegocio();
+            return View(rn.get_lista());
         }
 
         // GET: Pessoa/Details/5
         public ActionResult Details(string id)
         {
-            PessoaModel pessoa = new PessoaModel();
-
-            foreach (var item in lst_Pessoa)
-            {
-                if (item.cpf == id)
-                {
-                    return View(item);
-                }
-            }
-            return View();
+            return View(new cls_RegraNegocio().get_lista(id));
         }
 
         // GET: Pessoa/Create
@@ -110,12 +78,16 @@ namespace MVC_CRUD_PESSOA.Controllers
 
         // POST: Pessoa/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                for (int i = 0; i < lst_Pessoa.Count ; i++)
+                    if (lst_Pessoa[i].cpf == id)
+                    {
+                        lst_Pessoa.Remove(lst_Pessoa[i]);
+                        break;
+                    }
                 return RedirectToAction("Index");
             }
             catch
